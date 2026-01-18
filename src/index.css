@@ -1,0 +1,179 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --bg-app: #0f111a;
+    --bg-surface: #1e2130;
+    --bg-surface-hover: #292d3e;
+    --primary: #6c5ce7;
+    --primary-glow: rgba(108, 92, 231, 0.4);
+    --secondary: #00cec9;
+    --danger: #ff7675;
+    --text-main: #ffffff;
+    --text-muted: #b2bec3;
+    --border: #2d3436;
+    --radius: 16px;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    --font-main: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font-main);
+    background-color: var(--bg-app);
+    color: var(--text-main);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    overflow: auto;
+    /* Prevent body scroll, handle in app */
+}
+
+@keyframes grid-scroll {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 0 50px;
+    }
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: -30vh;
+    left: -50%;
+    width: 200%;
+    height: 100vh;
+    background-image:
+        linear-gradient(rgba(108, 92, 231, 0.2) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(108, 92, 231, 0.2) 1px, transparent 1px);
+    background-size: 50px 50px;
+    transform: perspective(500px) rotateX(-60deg);
+    mask-image: linear-gradient(to top, transparent 0%, black 100%);
+    -webkit-mask-image: linear-gradient(to top, transparent 0%, black 100%);
+    z-index: -1;
+    pointer-events: none;
+    animation: grid-scroll 4s linear infinite reverse;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    bottom: -30vh;
+    left: -50%;
+    width: 200%;
+    height: 100vh;
+    background-image:
+        linear-gradient(rgba(108, 92, 231, 0.2) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(108, 92, 231, 0.2) 1px, transparent 1px);
+    background-size: 50px 50px;
+    transform: perspective(500px) rotateX(60deg);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 100%);
+    z-index: -1;
+    pointer-events: none;
+    animation: grid-scroll 4s linear infinite;
+}
+
+#root {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
+    transition: all 0.2s;
+}
+
+input {
+    font-family: inherit;
+    transition: all 0.2s;
+}
+
+input:focus {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 2px var(--primary-glow);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.glass-panel {
+    background: rgba(8, 9, 15, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius);
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.glass-panel:hover {
+    border-color: var(--primary);
+    box-shadow: 0 0 25px var(--primary-glow), 0 0 10px rgba(108, 92, 231, 0.2);
+    z-index: 10;
+}
+
+.dashboard-grid {
+    display: flex;
+    gap: 2rem;
+    flex: 1;
+    /* min-height: 0; removed to avoid clipping, let flex handle it */
+    overflow: visible;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+
+    body,
+    #root {
+        overflow: auto;
+        height: auto;
+        display: block;
+    }
+
+    .dashboard-grid {
+        flex-direction: column;
+        overflow: visible;
+        padding-bottom: 2rem;
+    }
+
+    .glass-panel {
+        min-height: auto;
+        overflow: visible !important;
+        height: auto !important;
+    }
+}
+
+.nav-shiny {
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.nav-shiny:hover {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 25px var(--primary-glow), 0 0 10px rgba(108, 92, 231, 0.2) !important;
+    z-index: 100 !important;
+}
